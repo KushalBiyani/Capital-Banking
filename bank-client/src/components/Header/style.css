@@ -1,0 +1,10 @@
+#home .home,
+#cust .cust,
+#transfer .transfer,
+#history .history {
+    color: #fff;
+}
+.nav-link {
+    font-size: 25px;
+    font-weight: 900;
+}

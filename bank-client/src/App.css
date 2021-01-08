@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+}
+body{
+    background-color: rgb(239 97 97);
+}
+body,
+html {
+    font-family: gabriola;
+    height: 100%;
+    width: 100%;
+}
+
+body table,
+h3 {
+    font-weight: 700;
+}
+
+.btn-pad {
+    padding-top: 40px;
+    padding-left: 80px;
+
+}
+
+.heading {
+    color: white;
+    size: 50px;
+    padding-top: 60px;
+    padding-left: 40px;
+}
+
+.intro {
+
+    text-align: center;
+    color: white;
+}
+
+
+.btn {
+    height: 55px;
+    width: 450px;
+    color: white;
+    font-size: 25px;
+    border: 0px solid white;
+    background-color: #343a40;
+}
+
+.btn-send:hover,
+.btn:hover,
+.btn-submit:hover {
+    background-color: white;
+    color: black;
+}
+
+.btn-send:focus,
+.btn:focus,
+.btn-submit:focus {
+    background-color: white;
+    color: black;
+}
+
+.btn-submit {
+    height: 40px;
+    width: 90px;
+    color: white;
+    font-size: 20px;
+    border: 0px solid white;
+    background-color: #343a40;
+    border-radius: 5px;
+}
+
+.btn-send {
+    height: 25px;
+    width: 150px;
+    color: white;
+    font-size: 18px;
+    border: 0px solid white;
+    background-color: #343a40;
+    border-radius: 5px;
+}
+
+th {
+    background-color: #343a40;
+    color: lavenderblush;
+
+}
+
+h1 {
+    align-items: center;
+    font-size: 50px;
+    font-weight: 800;
+    font-family: gabriola;
+}
+
+
+
+
