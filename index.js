@@ -10,11 +10,9 @@ const Customer = require('./src/models/customer');
 const Transaction = require('./src/models/transaction');
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'bank-client/build')));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'bank-client/build', 'index.html'));
-});
 var jsonParser = bodyParser.json()
-app.use("/custDetails", (req, res) => {
+
+app.use("/api/custDetails", (req, res) => {
   Customer.find({}, function (err, foundItems) {
     if(err){
       res.status(404).json(err);
@@ -26,7 +24,7 @@ app.use("/custDetails", (req, res) => {
     }
   });
 });
-app.use("/transact/:id", (req, res) => {
+app.use("/api/transact/:id", (req, res) => {
   const { id } = req.params;
   Customer.findById(id, function (err, User) {
     if(err){
@@ -41,7 +39,7 @@ app.use("/transact/:id", (req, res) => {
   });
 });
 
-app.post("/transfer/:id1", jsonParser, async (req, res) => {
+app.post("/api/transfer/:id1", jsonParser, async (req, res) => {
   const { id1 } = req.params;
   const amount = parseInt(req.body.amount);
   ToUser = parseInt(req.body.user);
@@ -86,7 +84,7 @@ app.post("/transfer/:id1", jsonParser, async (req, res) => {
   }
 });
 
-app.get("/history", (req, res) => {
+app.get("/api/history", (req, res) => {
   Transaction.find({}, function (err, foundItems) {
     if(err){
       res.status(404).json(err);
@@ -98,7 +96,9 @@ app.get("/history", (req, res) => {
     }
   });
 });
-
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'bank-client/build', 'index.html'));
+});
 app.listen(port, () => {
   console.log("Server running at port : " + port);
 });

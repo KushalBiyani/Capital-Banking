@@ -1,1 +1,1 @@
-export const api = "https://capital-bank-demo.herokuapp.com"
+export const api = "https://capital-bank-demo.herokuapp.com/api"
