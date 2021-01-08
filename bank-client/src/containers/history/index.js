@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import {api} from '../../url';
-import '../../components/table.css'
+
 
 export default function History() {
     const [transaction, setTransaction] = useState([])
@@ -19,16 +19,17 @@ export default function History() {
             <div id="history">
                 <br />
                 <h1>Transaction History</h1>
-                <table class="flat-table flat-table-1">
+                <table className="flat-table flat-table-1">
                     <thead>
+                    <tr>
                         <th>Transaction Number</th>
                         <th>SENDER NAME</th>
                         <th>RECIEVER NAME</th>
-                        <th>AMOUNT</th>
+                        <th>AMOUNT</th></tr>
                     </thead>
                     <tbody>
                     {transaction.map((item) => ( 
-                        <tr>
+                        <tr key={item._id}>
                             <td>{item.transactionNumber}</td>
                             <td>{item.sendersName}</td>
                             <td>{item.recieversName}</td>

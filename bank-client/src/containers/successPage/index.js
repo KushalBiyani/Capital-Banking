@@ -7,11 +7,10 @@ export default function SuccessPage() {
     const transaction = window.localStorage.getItem("transaction");
     var token = JSON.parse(transaction);
     useEffect(() => {
-        let interval = null;
-           interval = setInterval(() => {
+        setInterval(() => {
             setRedirect(true);
-           }, 5000);
-      }, [redirect])
+        }, 4000);
+    }, [redirect])
       if (redirect) {
         return <Redirect to={`/history`} />;
     }
@@ -23,9 +22,9 @@ export default function SuccessPage() {
             <div className="paper-container">
                 <div className="printer-bottom">
                 </div>
-                <div className="paper">
+                <div className="paper zig-zag-bottom ">
                     <div className="main-contents">
-                        <div className="success-icon">&#10004;</div>
+                        <div className="success icon">&#10004;</div>
                         <div className="success-title">
                             Payment Successful
                         </div>
@@ -33,15 +32,14 @@ export default function SuccessPage() {
                             <div className="text" >
                                 &emsp;&emsp;<span >Amount :</span>&emsp;&emsp;&emsp;&emsp;&ensp;<span>{token.amount}</span><br />
                                 &emsp;&emsp;<span>Sender :</span>&emsp;&emsp;&emsp;&emsp;<span>{token.sendersName}</span><br />
-                                &emsp;&emsp;<span>Reciever :</span>&emsp;&emsp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;<span>{token.recieversName}</span><br />
+                                &emsp;&emsp;<span>Reciever :</span>&emsp;&emsp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;<span>{token.recieversName}</span>
                             </div>
-                            <div className="order-details"><br />
-                                <div className="order-number-label">Order Number</div>
+                            <div className="order-details"><br></br>
+                                <div className="order-number-label">Transaction Number</div>
                                 <div className="order-number">{token.transactionNumber}</div>
                             </div>
                             <div className="order-footer">Thank you!</div>
                         </div>
-                        <div className="jagged-edge"></div>
                     </div>
                     
                 </div>

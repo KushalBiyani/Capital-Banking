@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-//const cors = require("cors");
+require('dotenv').config()
 const port = process.env.PORT || 4000;
-const database = require('./database');
+const database = require('./src/database');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require("cors");
@@ -12,22 +12,32 @@ app.use(cors());
 var jsonParser = bodyParser.json()
 app.use("/custDetails", (req, res) => {
   Customer.find({}, function (err, foundItems) {
-    res.status(200).json(
-      [...foundItems]
-    );
+    if(err){
+      res.status(404).json(err);
+    }
+    else{
+      res.status(200).json(
+        [...foundItems]
+      );
+    }
   });
 });
 app.use("/transact/:id", (req, res) => {
   const { id } = req.params;
   Customer.findById(id, function (err, User) {
-    res.status(200).json(
-      User
-    );
+    if(err){
+      res.status(404).json(err);
+    }
+    else{
+      res.status(200).json(
+        User
+      );
+    }
+    
   });
 });
 
 app.post("/transfer/:id1", jsonParser, async (req, res) => {
-  console.log(req.body);
   const { id1 } = req.params;
   const amount = parseInt(req.body.amount);
   ToUser = parseInt(req.body.user);
@@ -39,7 +49,8 @@ app.post("/transfer/:id1", jsonParser, async (req, res) => {
     let toamountNew = parseInt(toUser.balance + amount);
     await Customer.findByIdAndUpdate(id1, { balance: fromamountNew }, function (err, docs) {
       if (err) {
-        console.log(err)
+        console.log(err);
+        res.status(404).json(err);
       }
       else {
         console.log("Updated User : ", docs);
@@ -47,7 +58,8 @@ app.post("/transfer/:id1", jsonParser, async (req, res) => {
     });
     await Customer.findByIdAndUpdate(toUser._id, { balance: toamountNew }, function (err, docs) {
       if (err) {
-        console.log(err)
+        console.log(err);
+        res.status(404).json(err);
       }
       else {
         console.log("Updated User : ", docs);
@@ -65,24 +77,24 @@ app.post("/transfer/:id1", jsonParser, async (req, res) => {
     res.status(200).json(newT)
   }
   else {
-    res.status(404).json(error);
+    res.status(201).json("Insufficient balance");
+    console.log("Insufficient balance")
   }
 });
 
-
-
-// app.get('/transfer/custDetails.ejs', function(req, res){ 
-//   res.redirect("/custDetails.ejs");
-// });
 app.get("/history", (req, res) => {
   Transaction.find({}, function (err, foundItems) {
-    res.status(200).json(
-      [...foundItems]
-    );
+    if(err){
+      res.status(404).json(err);
+    }
+    else{
+      res.status(200).json(
+        [...foundItems]
+      );
+    }
   });
 });
 
-
-app.listen(4000, function () {
-  console.log("Server started on port 4000");
+app.listen(port, () => {
+  console.log("Server running at port : " + port);
 });

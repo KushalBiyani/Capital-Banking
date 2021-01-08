@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Layout from '../../components/Layout';
 import { api } from '../../url';
-import '../../components/table.css'
+
 
 export default function SelectUser() {
     const [customer, setCustomer] = useState([])
@@ -18,22 +18,24 @@ export default function SelectUser() {
             <div id="transfer">
                 <br />
                 <h1>Transact From</h1>
-                <table class="flat-table flat-table-1">
+                <table className="flat-table flat-table-1">
                     <thead>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>ACCOUNT NUMBER</th>
-                        <th>CURRENT BALANCE</th>
-                        <th>Transfer</th>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>ACCOUNT NUMBER</th>
+                            <th>CURRENT BALANCE</th>
+                            <th>Transfer</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {customer.map((item) => (
-                            <tr>
+                            <tr key={item._id}>
                                 <td>{item.id}</td>
                                 <td>{item.name}</td>
                                 <td>{item.acc_no}</td>
                                 <td>{item.balance}</td>
-                                <td><Link to={`/transact/${item._id}`}><button type="submit" value="<%=item.id%>" class="btn-send">Send Money</button></Link></td>
+                                <td><Link to={`/transact/${item._id}`}><button type="submit" value="<%=item.id%>" className="btn-send">Send Money</button></Link></td>
                             </tr>
                         ))}
                     </tbody>
