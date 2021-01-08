@@ -4,7 +4,9 @@
   "description": "Simple Credit mangement system",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd bank-client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "author": "Kushal Biyani",
   "license": "ISC",
