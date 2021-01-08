@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import {Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './containers/Home';
 import CustDetails from './containers/customerDetails';
@@ -11,16 +11,16 @@ import ErrorPage from './containers/error';
 function App() {
   return (
     <main>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/customerDetails" exact component={CustDetails} />
-        <Route path="/selectUser" exact component={SelectUser} />
-        <Route path="/transact/:id" exact component={Transfer} />
-        <Route path="/history" exact component={History} />
-        <Route path="/success" exact component={SuccessPage} />
-        <Route path="/error" exact component={ErrorPage} />
-      </Switch>
-    </main>
+             <Switch>                      
+            <Route path="/" exact component={Home} />
+            <Route path="/customerDetails" exact component={CustDetails} />
+            <Route path="/selectUser" exact component={SelectUser} />
+            <Route path="/transact/:id" exact component={Transfer} />
+            <Route path="/history" exact component={History} />
+            <Route path="/success" exact component={SuccessPage} />
+            <Route path="/error" exact component={ErrorPage} />
+            </Switch>
+        </main> 
   );
 }
 
