@@ -10,6 +10,9 @@ const Customer = require('./src/models/customer');
 const Transaction = require('./src/models/transaction');
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'bank-client/build')));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'login_client/build', 'index.html'));
+});
 var jsonParser = bodyParser.json()
 app.use("/custDetails", (req, res) => {
   Customer.find({}, function (err, foundItems) {
