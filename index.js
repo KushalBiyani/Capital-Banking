@@ -96,7 +96,7 @@ app.get("/api/history", (req, res) => {
     }
   });
 });
-app.get('/', function(req, res) {
+app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'bank-client/build', 'index.html'));
 });
 app.listen(port, () => {
