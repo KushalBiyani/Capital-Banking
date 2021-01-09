@@ -43,30 +43,49 @@ app.post("/api/transfer/:id1", jsonParser, async (req, res) => {
   const { id1 } = req.params;
   const amount = parseInt(req.body.amount);
   ToUser = parseInt(req.body.user);
-  var toUser = await Customer.findOne({ acc_no: ToUser }).exec();
-  const fromUser = await Customer.findById(id1).exec();
+  try {
+    var toUser = await Customer.findOne({ acc_no: ToUser }).exec();
+  } catch (error) {
+    console.log('user fetch failed',error)
+  }
+  try {
+    const fromUser = await Customer.findById(id1).exec();
+  } catch (error) {
+    console.log('User fetch failed',error)
+  }
+  
+ 
   if (amount <= fromUser.balance && amount > 0) {
 
     let fromamountNew = parseInt(fromUser.balance - amount);
     let toamountNew = parseInt(toUser.balance + amount);
-    await Customer.findByIdAndUpdate(id1, { balance: fromamountNew }, function (err, docs) {
-      if (err) {
-        console.log(err);
-        res.status(404).json(err);
-      }
-      else {
-        console.log("Updated User : ", docs);
-      }
-    });
-    await Customer.findByIdAndUpdate(toUser._id, { balance: toamountNew }, function (err, docs) {
-      if (err) {
-        console.log(err);
-        res.status(404).json(err);
-      }
-      else {
-        console.log("Updated User : ", docs);
-      }
-    });
+    try {
+      await Customer.findByIdAndUpdate(id1, { balance: fromamountNew }, function (err, docs) {
+        if (err) {
+          console.log(err);
+          res.status(404).json(err);
+        }
+        else {
+          console.log("Updated User : ", docs);
+        }
+      });
+    } catch (error) {
+      console.log('Amount doen not get changed',error)
+    }
+    try {
+      await Customer.findByIdAndUpdate(toUser._id, { balance: toamountNew }, function (err, docs) {
+        if (err) {
+          console.log(err);
+          res.status(404).json(err);
+        }
+        else {
+          console.log("Updated User : ", docs);
+        }
+      });
+    } catch (error) {
+      console.log('Amount doen not get changed',error)
+    }
+    
     const transactionNumber = Math.floor((Math.random() * 10000000000) + 1);
     let newT = new Transaction();
     newT.sendersName = fromUser.name;
@@ -75,7 +94,12 @@ app.post("/api/transfer/:id1", jsonParser, async (req, res) => {
     newT.reciever_acc_no = toUser.acc_no;
     newT.transactionNumber = transactionNumber;
     newT.amount = amount;
-    await newT.save();
+    try {
+      await newT.save();
+    } catch (error) {
+      console.log('transaction not get saved',error)
+    }
+    
     res.status(200).json(newT)
   }
   else {
@@ -96,7 +120,7 @@ app.get("/api/history", (req, res) => {
     }
   });
 });
-app.get('/', function(req, res) {
+app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'bank-client/build', 'index.html'));
 });
 app.listen(port, () => {
