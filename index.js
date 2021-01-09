@@ -43,17 +43,8 @@ app.post("/api/transfer/:id1", jsonParser, async (req, res) => {
   const { id1 } = req.params;
   const amount = parseInt(req.body.amount);
   ToUser = parseInt(req.body.user);
-  try {
-    var toUser = await Customer.findOne({ acc_no: ToUser }).exec();
-  } catch (error) {
-    console.log('user fetch failed',error)
-  }
-  try {
-    const fromUser = await Customer.findById(id1).exec();
-  } catch (error) {
-    console.log('User fetch failed',error)
-  }
-  
+  var toUser = await Customer.findOne({ acc_no: ToUser }).exec();
+  var fromUser = await Customer.findById(id1).exec();
  
   if (amount <= fromUser.balance && amount > 0) {
 
