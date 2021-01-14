@@ -53,52 +53,45 @@ export default function Transfer(props) {
     }
     return (
         <Layout>
-            <br />
             <div>
                 <h1>User Information</h1>
-                <h3>Transact from</h3>
                 <br />
-                <table>
-                    <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>EMAIL</th>
-                        <th>ACCOUNT NUMBER</th>
-                        <th>CURRENT BALANCE</th>
-                        <th>LOCATION</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.acc_no}</td>
-                        <td>{user.balance}</td>
-                        <td>{user.location}</td>
-                    </tr>
-                    </tbody>
-                </table>
                 <form onSubmit={transfer}>
-                    <br />
-                    <br />
-                    <h3>Transact To</h3>
-                    <br />
-                    <table>
-                    <tbody>
-                        <tr>
-                            <td>Transfer To:</td>
-                            <td>
-                                <select
-                                    value={acc_no}
+                    <div className="row transfer">
+                        <div className="col-md-5 card">
+                            <h3>Transfer From</h3>
+                            <div className="row">
+                                <div className="col-6">
+                                    <h5>Name</h5>
+                                    <h5>Account Number</h5>
+                                    <h5>Current Balance</h5>
+                                </div>
+                                <div className="col-6">
+                                    <h5>{user.name}</h5>
+                                    <h5>{user.acc_no}</h5>
+                                    <h5>{user.balance}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-5 card">
+                            <h3>Transfer To</h3>
+                            <div className="row">
+                                <div className="col-6">
+                                    <h5>Name</h5>
+                                    <h5>Account Number</h5>
+                                    <h5>Amount</h5>
+                                </div>
+                                <div className="col-6">
+                                    <h5 className="input-1">
+                                    <select 
+                                    className="form-control"
                                     name="toUser"
                                     onChange={(e) => setAcc(e.target.value)}
                                 >
-                                    <option disabled>
-                                        Select User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </option>
-                                    {customer.map(
-                                        (item) =>
-                                            item._id !== user._id && (
-                                                <option
+                                                <option selected disabled>Select User</option>
+                                                {customer.map(
+                                                    (item) =>
+                                                        item._id !== user._id && (<option
                                                     value={item.acc_no}
                                                     name="toUser"
                                                     key={item._id}
@@ -106,38 +99,23 @@ export default function Transfer(props) {
                                                 >
                                                     {item.name}
                                                 </option>
-                                            )
-                                    )}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Amount:</td>
-                            <td>
-                                <input
-                                    type="number"
-                                    name="amount"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                />
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br />
-                    <button
-                        className="btn-submit"
-                        type="submit"
-                        value="Submit"
-                        align="center"
-                    >
-                        Submit
-          </button>
+                                                        ))}
+                                        </select>
+                                    </h5>
+                                    <h5>{acc_no} &nbsp; </h5>
+                                    <h5 className="input-1">
+                                        <input className="form-control" label="Amount" type="number" name="amount" value={amount}
+                                            required onChange={(e) => setAmount(e.target.value)} />
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button className="btn" type="submit" value="Submit" align="center">
+                        Transfer </button>
                 </form>
-                <br />
-                <br />
-                <br />
             </div>
+            <br /><br />
         </Layout>
     );
 }

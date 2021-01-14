@@ -16,9 +16,8 @@ export default function SelectUser() {
     return (
         <Layout >
             <div id="transfer">
-                <br />
-                <h1>Transact From</h1>
-                <table className="flat-table flat-table-1">
+                <h1>Transact From</h1><br />
+                <table className="flat-table flat-table-1 table-responsive-lg">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -35,7 +34,7 @@ export default function SelectUser() {
                                 <td>{item.name}</td>
                                 <td>{item.acc_no}</td>
                                 <td>{item.balance}</td>
-                                <td><Link to={`/transact/${item._id}`}><button type="submit" value="<%=item.id%>" className="btn-send">Send Money</button></Link></td>
+                                <td><Link to={`/transact/${item._id}`}><button type="submit" value="<%=item.id%>" className="btn btn-transfer">Transfer </button></Link></td>
                             </tr>
                         ))}
                     </tbody>

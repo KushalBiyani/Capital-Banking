@@ -17,9 +17,9 @@ export default function History() {
     return (
         <Layout >
             <div id="history">
-                <br />
-                <h1>Transaction History</h1>
-                <table className="flat-table flat-table-1">
+                
+                <h1>Transaction History</h1><br />
+                <table className="flat-table flat-table-1 table-responsive-lg">
                     <thead>
                     <tr>
                         <th>Transaction Number</th>

@@ -7,10 +7,10 @@ export default function ErrorPage() {
     useEffect(() => {
         setInterval(() => {
             setRedirect(true);
-        }, 4000);
+        }, 8000);
     }, [redirect])
     if (redirect) {
-         return <Redirect to={`/selectUser`} />;
+         //return <Redirect to={`/selectUser`} />;
     }
     return (
         <div >
@@ -32,7 +32,6 @@ export default function ErrorPage() {
 
                     </div>
                 </div>
-                <div className="continue" ><h3>Redirecting...</h3></div>
             </div>
         </div>
     )

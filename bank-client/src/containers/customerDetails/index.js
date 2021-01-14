@@ -18,9 +18,9 @@ export default function CustDetails() {
     return (
         <Layout >
             <div id="cust">
-                <br />
+
                 <h1>Details of Customer</h1><br />
-                <table className="flat-table flat-table-1" >
+                <table className="flat-table flat-table-1 table-responsive-lg" >
                     <thead>
                     <tr>
                         <th>ID</th>

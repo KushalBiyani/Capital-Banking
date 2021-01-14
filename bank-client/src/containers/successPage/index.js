@@ -9,10 +9,10 @@ export default function SuccessPage() {
     useEffect(() => {
         setInterval(() => {
             setRedirect(true);
-        }, 4000);
+        }, 8000);
     }, [redirect])
       if (redirect) {
-        return <Redirect to={`/history`} />;
+      //  return <Redirect to={`/history`} />;
     }
     return (
         <div id ="success">
@@ -29,11 +29,11 @@ export default function SuccessPage() {
                             Payment Successful
                         </div>
                         <div className="success-description">
-                            <div className="text" >
-                                &emsp;&emsp;<span >Amount :</span>&emsp;&emsp;&emsp;&emsp;&ensp;<span>{token.amount}</span><br />
-                                &emsp;&emsp;<span>Sender :</span>&emsp;&emsp;&emsp;&emsp;<span>{token.sendersName}</span><br />
-                                &emsp;&emsp;<span>Reciever :</span>&emsp;&emsp;&ensp;&ensp;&ensp;&nbsp;&nbsp;&nbsp;<span>{token.recieversName}</span>
-                            </div>
+                        <div className="row">
+                            <div className="col-md-6 info"><h5 >Amount  </h5><h5>Sender </h5><h5>Reciever </h5></div>
+                            <div className="col-md-6 des"><h5 >{token.amount}</h5><h5>{token.sendersName}</h5><h5>{token.recieversName}</h5></div>
+                            <div></div>
+                        </div>
                             <div className="order-details"><br></br>
                                 <div className="order-number-label">Transaction Number</div>
                                 <div className="order-number">{token.transactionNumber}</div>
@@ -44,7 +44,7 @@ export default function SuccessPage() {
                     
                 </div>
             </div>
-             <div className="continue" ><h3>Redirecting...</h3></div> 
+             
         </div>
 </div>
     )
