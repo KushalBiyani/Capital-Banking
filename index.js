@@ -35,27 +35,11 @@ app.use("/api/custDetails", (req, res) => {
   });
 });
 
-//Route for Selecting customer 
-app.use("/api/transact/:id", (req, res) => {
-  const { id } = req.params;
-  Customer.findById(id, function (err, User) {
-    if (err) {
-      return res.status(404).json(err);
-    }
-    else {
-      return res.status(200).json(
-        User
-      );
-    }
-
-  });
-});
-
 //Route for Transfer
-app.post("/api/transfer/:id1", jsonParser, async (req, res) => {
-  const { id1 } = req.params;
+app.post("/api/transfer", jsonParser, async (req, res) => {
+  const  id1  = req.body.userId;
   const amount = parseInt(req.body.amount);
-  ToUser = parseInt(req.body.user);
+  ToUser = parseInt(req.body.acc_no);
   var toUser = await Customer.findOne({ acc_no: ToUser }).exec();
   var fromUser = await Customer.findById(id1).exec();
 

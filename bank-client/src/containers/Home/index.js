@@ -27,7 +27,7 @@ export default function Home() {
 
           </div>
           <div className="col-lg-6" >
-            <img src={bank} className="front-image"></img>
+            <img src={bank} className="front-image" alt="Money transfer"></img>
           </div>
         </div>
       </div>
