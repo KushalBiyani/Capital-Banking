@@ -1,4 +1,65 @@
-img{
-    height: 100%;
-     width: 100%;
+.col-md-6{
+    margin: auto;
+}
+.box{
+    border: solid rgb(70, 70, 70) 2px;
+    margin: auto 0 ;
+    border-top-right-radius: 13rem;
+    border-bottom-right-radius:13rem;
+}
+.content{
+    margin:2rem;
+    text-align: center !important;
+    
+}
+    
+a .btn{
+    margin:17.5px 25px;
+}
+.row{
+    width: 100%;
+}
+.second{
+    background-color: white;
+width: 100%;
+padding:  4rem ;
+margin-top: 5%;
+}
+.front-image{
+    margin: 1rem;
+    width: 100%;
+}
+.margin{
+    align-items: center;
+  
+}
+.cyan-text{
+    color: #3ab9e9 !important;
+    /* fallback for old browsers */
+    
+}
+.icon-text h2{
+    font-weight: 900;
+    
+}
+hr{
+    margin: 5% 5% 0 5%;
+    width: 100%;
+    background-color: rgb(117, 114, 114);
+    border-radius: 2px;
+    color: #eee;
+    height: 3px; 
+}
+.third{
+    width: 80%;
+    margin: 4rem auto 0 auto;
+}
+.d-flex{
+    padding: 2%;
+}
+.contact-content{
+    padding-left: 3%;
+}
+.fa-3x{
+    width:3rem;
 }

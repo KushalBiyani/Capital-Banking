@@ -1,143 +1,126 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { api } from "../../url";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomers } from "../../actions/customer-actions";
+import { postTransfers } from "../../actions/transfer-actions";
+import { LoopCircleLoading } from 'react-loadingg';
 
 export default function Transfer(props) {
-    const [status, setStatus] = useState("loading");
     const UserId = props.match.params.id;
     const [acc_no, setAcc] = useState("");
     const [amount, setAmount] = useState("");
-    const [customer, setCustomer] = useState([]);
-    useEffect(() => {
-        fetch(`${api}/custDetails`)
-            .then((response) => response.json())
-            .then((data) => {
-                setCustomer(data);
-            });
-    }, []);
+    const customer = useSelector(state => state.customer.customers);
+    const status = useSelector(state => state.transfer.status);
+    const dispatch = useDispatch();
 
-    const [user, setUser] = useState([]);
     useEffect(() => {
-        fetch(`${api}/transact/${UserId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setUser(data);
-            });
-    }, [UserId]);
+        dispatch(getCustomers());
+    }, [dispatch])
 
     const transfer = (e) => {
-        const data = {
-            user: acc_no,
-            amount: amount,
-        };
-        axios
-            .post(`${api}/transfer/${user._id}`, { ...data })
-            .then(function (response) {
-                if (response.status === 200) {
-                    localStorage.setItem("transaction", JSON.stringify(response.data));
-                    setStatus("success");
-                }
-                if (response.status === 201) {
-                    setStatus("error");
-                }
-            });
-        e.preventDefault();
+        if (!acc_no) {
+            alert("Please Select the User");
+            e.preventDefault()
+            return false;
+        }
+        else if(amount <= 0){
+            alert("Amount is Incorrect");
+            e.preventDefault()
+            return false;
+        }
+        else{
+            const form = {
+                userId: UserId,
+                acc_no: acc_no,
+                amount: amount
+            }
+            dispatch(postTransfers(form));
+            e.preventDefault();
+        }
     };
-    if (status === "success") {
+    if (status === 200) {
         return <Redirect to={`/success`} />;
     }
-    if (status === "error") {
+    if (status === 201) {
         return <Redirect to={`/error`} />;
     }
-    return (
-        <Layout>
-            <br />
-            <div>
-                <h1>User Information</h1>
-                <h3>Transact from</h3>
-                <br />
-                <table>
-                    <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>EMAIL</th>
-                        <th>ACCOUNT NUMBER</th>
-                        <th>CURRENT BALANCE</th>
-                        <th>LOCATION</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.acc_no}</td>
-                        <td>{user.balance}</td>
-                        <td>{user.location}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <form onSubmit={transfer}>
+    if (customer.length > 0) {
+        return (
+            <Layout>
+                <div>
+                    <h1>User Information</h1>
                     <br />
-                    <br />
-                    <h3>Transact To</h3>
-                    <br />
-                    <table>
-                    <tbody>
-                        <tr>
-                            <td>Transfer To:</td>
-                            <td>
-                                <select
-                                    value={acc_no}
-                                    name="toUser"
-                                    onChange={(e) => setAcc(e.target.value)}
-                                >
-                                    <option disabled>
-                                        Select User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </option>
+                    <form onSubmit={transfer}>
+                        <div className="row transfer">
+                            <div className="col-md-5 card">
+                                <h3>Transfer From</h3>
+                                <div className="row">
+                                    <div className="col-6">
+                                        <h5>Name</h5>
+                                        <h5>Account Number</h5>
+                                        <h5>Current Balance</h5>
+                                    </div>
                                     {customer.map(
                                         (item) =>
-                                            item._id !== user._id && (
-                                                <option
-                                                    value={item.acc_no}
-                                                    name="toUser"
-                                                    key={item._id}
-                                                    onChange={(e) => setAcc(e.target.value)}
-                                                >
-                                                    {item.name}
-                                                </option>
-                                            )
-                                    )}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Amount:</td>
-                            <td>
-                                <input
-                                    type="number"
-                                    name="amount"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                />
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br />
-                    <button
-                        className="btn-submit"
-                        type="submit"
-                        value="Submit"
-                        align="center"
-                    >
-                        Submit
-          </button>
-                </form>
-                <br />
-                <br />
-                <br />
-            </div>
-        </Layout>
-    );
+                                            item._id === UserId && (
+                                                <div className="col-6" key={item._id}>
+                                                    <h5>{item.name}</h5>
+                                                    <h5>{item.acc_no}</h5>
+                                                    <h5>{item.balance}</h5>
+                                                </div>
+                                            ))}
+                                </div>
+                            </div>
+                            <div className="col-md-5 card">
+                                <h3>Transfer To</h3>
+                                <div className="row">
+                                    <div className="col-6">
+                                        <h5>Name</h5>
+                                        <h5>Account Number</h5>
+                                        <h5>Amount</h5>
+                                    </div>
+                                    <div className="col-6">
+                                        <h5 className="input-1">
+                                            <select
+                                                className="form-control"
+                                                name="toUser"
+                                                onChange={(e) => setAcc(e.target.value)}
+                                                defaultValue=""
+                                            >
+                                                <option disabled={true} value="">Select User</option>
+                                                {customer.map(
+                                                    (item) =>
+                                                        item._id !== UserId && (<option
+                                                            value={item.acc_no}
+                                                            name="toUser"
+                                                            key={item._id}
+                                                            onChange={(e) => setAcc(e.target.value)}
+                                                        >
+                                                            {item.name}
+                                                        </option>
+                                                        ))}
+                                            </select>
+                                        </h5>
+                                        <h5>{acc_no} &nbsp; </h5>
+                                        <h5 className="input-1">
+                                            <input className="form-control" label="Amount" type="number" name="amount" value={amount}
+                                                required onChange={(e) => setAmount(e.target.value)} />
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button className="btn" type="submit" value="Submit" align="center">
+                            Transfer </button>
+                    </form>
+                </div>
+                <br /><br />
+            </Layout>
+        );
+    }
+    else {
+        return (<LoopCircleLoading />)
+    }
+
 }

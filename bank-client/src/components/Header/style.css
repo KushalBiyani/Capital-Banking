@@ -1,10 +1,44 @@
-#home .home,
-#cust .cust,
-#transfer .transfer,
-#history .history {
-    color: #fff;
-}
+
 .nav-link {
-    font-size: 25px;
-    font-weight: 900;
+    font-size: 20px;
+    font-weight: 700;
+}
+.navbar {
+    padding-top: 10px;
+    top: 0;
+    z-index: 1020;
+    width: 100%;
+    height: 85px;
+}
+
+a{
+    color: rgba(0,0,0,.7) ;
+}
+
+.show{
+    background-color: rgba(0,0,0,.3) 
+}
+.nav-item.pad{
+    padding: 20px;
+}
+@media (max-width: 500px){
+    .brand{
+font-size: 2rem;
+}
+}
+.bars{
+    height: 1.6rem;
+    width: 2rem;
+    border:2px solid black !important;
+    border-radius: .25rem; 
+}
+.scroll{
+background-color:#343a40 !important;
+}
+.scroll-a{
+    color: white !important;
+}
+.scroll-button{
+    background-color:white !important;
+    border:2px solid white !important;
 }

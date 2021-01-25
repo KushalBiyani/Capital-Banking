@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import { Redirect } from "react-router-dom";
 
-
 export default function ErrorPage() {
-    const [redirect, setRedirect] = useState(false)
-    useEffect(() => {
-        setInterval(() => {
-            setRedirect(true);
-        }, 4000);
-    }, [redirect])
-    if (redirect) {
+    const [counter, setCounter] = useState(8);
+
+    setInterval(() => setCounter(counter - 1), 1000);
+    if (counter === 0) {
          return <Redirect to={`/selectUser`} />;
     }
     return (
@@ -32,8 +28,8 @@ export default function ErrorPage() {
 
                     </div>
                 </div>
-                <div className="continue" ><h3>Redirecting...</h3></div>
             </div>
+            <h3>Redirecting in {counter} seconds</h3>            
         </div>
     )
 }
