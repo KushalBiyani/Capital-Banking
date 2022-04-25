@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 * {
     margin: 0;
 }
@@ -147,7 +148,9 @@ tr:nth-child(even) {
 @media (max-width: 600px){
     .disabled-1{
         display: none;
-/* height:0;
-width: 0; */
 }
+}
+a:hover {
+    color: #0056b3;
+    text-decoration: unset;
 }
