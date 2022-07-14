@@ -114,6 +114,7 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'bank-client/build', 'index.html'));
 });
 
+
 app.listen(port, () => {
   console.log("Server running at port : " + port);
 });

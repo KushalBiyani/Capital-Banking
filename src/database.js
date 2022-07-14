@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // Establish Database Connection
 mongoose.connect(
-    `mongodb+srv://Kushal:${process.env.MONGO_DB_PASSWORD}@cluster0.lkvzs.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
+  `mongodb+srv://Kushal:${process.env.MONGO_DB_PASSWORD}@cluster0.lkvzs.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
